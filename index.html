@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤</title>
+<style>
+    body {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fcb69f);
+        background-size: 300% 300%;
+        animation: gradientBG 10s ease infinite;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        text-align: center;
+        overflow: hidden;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    #message {
+        font-size: 26px;
+        margin-bottom: 30px;
+        min-height: 50px;
+    }
+    .heart {
+        position: absolute;
+        font-size: 22px;
+        animation: float 6s linear infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(100vh) translateX(0px); opacity: 1; }
+        100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+    }
+    .glow-text {
+        font-size: 38px;
+        font-weight: bold;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d, 0 0 30px #ff1a4c;
+        animation: pulse 2s infinite;
+        margin-bottom: 20px;
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    .btn {
+        background: #ff4d6d;
+        border: none;
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 25px;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 15px rgba(255,0,80,0.5);
+    }
+    .btn:hover {
+        background: #ff1a4c;
+        transform: scale(1.1);
+    }
+    /* Love letter popup */
+    #loveLetter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 77, 109, 0.95);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255,0,80,0.6);
+        width: 80%;
+        max-width: 350px;
+        font-size: 20px;
+        line-height: 1.5;
+        display: none;
+        animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translate(-50%, -60%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+</style>
+</head>
+<body>
+
+<div class="glow-text">I Love You ❤ Forever</div>
+<div id="message"></div>
+
+<button class="btn" onclick="showSurprise()">Click Me 💌</button>
+
+<!-- Love letter popup -->
+<div id="loveLetter">
+    💖 My Spider girl,<br><br>
+    You are the reason my heart smiles every day.<br>
+    I promise to love you endlessly, in every lifetime. 💍💕<br><br>
+    Yours forever ❤
+</div>
+
+<script>
+const messages = [
+    "Good morning, beautiful ❤",
+    "You make my heart smile 😘",
+    "I love you more every day 💕",
+    "You are my sunshine 🌞",
+    "Can’t wait to see you 🥰",
+    "Forever and always yours 💖"
+];
+
+let i = 0;
+const messageDiv = document.getElementById("message");
+
+function typeMessage() {
+    if (i < messages.length) {
+        let text = messages[i];
+        let j = 0;
+        messageDiv.textContent = "";
+        function typeLetter() {
+            if (j < text.length) {
+                messageDiv.textContent += text[j];
+                j++;
+                setTimeout(typeLetter, 100);
+            } else {
+                i++;
+                setTimeout(typeMessage, 1500);
+            }
+        }
+        typeLetter();
+    } else {
+        i = 0;
+        setTimeout(typeMessage, 1000); // loop messages
+    }
+}
+typeMessage();
+
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    const hearts = ["❤","💖","💕","💓","💗","💞"];
+    heart.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    heart.style.color = "red";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 400);
+
+// Surprise: love letter + confetti
+function showSurprise() {
+    document.getElementById("loveLetter").style.display = "block";
+
+    // Heart confetti
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("heart");
+        confetti.textContent = "❤";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = Math.random() * window.innerHeight + "px";
+        confetti.style.fontSize = Math.random() * 30 + 15 + "px";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+    }
+}
+</script>
+
+</body>
+</html>
